@@ -1,0 +1,33 @@
+name: idl_env
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pytorch
+  - torchvision
+  - torchaudio
+  - pytorch-cuda=12.1
+  - numpy
+  - pandas
+  - scikit-learn
+  - scipy
+  - matplotlib
+  - seaborn
+  - mne
+  - tqdm
+  - pip
+  - pip:
+      - torchinfo
+      - wandb
+      - python-Levenshtein
+      - open-clip-torch
+      - bert-score
+      - sentence-transformers
+      - evaluate
+      - pyEDFlib
+      - accelerate
+      - transformers
+      - pandas
