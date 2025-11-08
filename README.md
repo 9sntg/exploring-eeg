@@ -49,10 +49,40 @@ See `environment.yml` for conda environment setup. Requires:
 
 ```
 exploring-eeg/
-├── 1-instructions/          # Project instructions and documentation
-├── 2-docs-reference/        # Reference papers and materials
-├── 5-caption-retrieval/     # Task 2A implementation (CLIP-based retrieval)
-└── environment.yml          # Conda environment configuration
+├── 1-instructions/                    # Project instructions and documentation
+│   ├── CLIP_Fine_Tuning.ipynb        # Starter code for CLIP fine-tuning strategies
+│   ├── EEG_write-up.pdf              # Project write-up document
+│   └── instructions.md               # Complete assignment instructions
+│
+├── 2-docs-reference/                 # Reference papers and materials
+│   ├── 1-original-paper.pdf          # Original EEG dataset paper
+│   ├── 2-destilation.pdf             # Knowledge distillation reference
+│   ├── 3-lora.pdf                    # LoRA paper
+│   ├── 4-visual-models.pdf           # Visual models reference
+│   ├── 5-multimodal-learning.pdf     # Multimodal learning reference
+│   └── EEGDataset-main/              # Reference implementation code
+│       ├── paradigm-1_RSVP/          # RSVP paradigm code
+│       ├── paradigm-2_low-speed/     # Low-speed paradigm code
+│       ├── preprocess/                # Preprocessing scripts
+│       └── technical_validate/       # Baseline model implementations
+│
+├── 3-midterm-report/                 # Midterm deliverables
+│   └── group-9.pdf                   # Midterm report
+│
+├── 4-eeg-classifiers/                # Task 1: EEG Classification
+│   ├── data_extraction/              # Data loading utilities
+│   │   ├── dataloader.py             # PyTorch dataloader
+│   │   ├── dataset_builder.py        # Dataset construction
+│   │   └── path_setup.py             # Path configuration
+│   ├── EER_BL_Model.ipynb            # EEG encoder baseline model
+│   ├── results_per_class_accuracy.tex # Per-class accuracy results
+│   └── results_summary.tex           # Results summary
+│
+├── 5-caption-retrieval/              # Task 2: Caption Retrieval
+│   └── task2a.ipynb                 # Task 2A: Image-Caption Retrieval with CLIP
+│
+├── environment.yml                   # Conda environment configuration
+└── README.md                          # This file
 ```
 
 ## Course Information
