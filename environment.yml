@@ -5,29 +5,33 @@ channels:
   - conda-forge
   - defaults
 dependencies:
+  # Core
   - python=3.10
-  - pytorch
-  - torchvision
-  - torchaudio
+  - pip>=24.0
+
+  # GPU-enabled PyTorch stack (pre-compiled CUDA 12.x)
+  - pytorch=2.5.1
+  - torchvision=0.20.1
+  - torchaudio=2.5.1
   - pytorch-cuda=12.1
-  - numpy
-  - pandas
-  - scikit-learn
-  - scipy
-  - matplotlib
-  - seaborn
-  - mne
-  - tqdm
-  - pip
+
+  # Data science / ML ecosystem (pinned stable versions)
+  - numpy=1.26.*
+  - pandas=2.2.*
+  - scikit-learn=1.5.*
+  - matplotlib=3.9.*
+  - tqdm=4.66.*
+  - wandb=0.18.*
+  - python-Levenshtein=0.25.*
+  - torchinfo=1.8.*
+  - scipy=1.13.*
+  - mne=1.7.*
+
+  # Jupyter and kernel integration
+  - notebook=7.2.*
+  - jupyterlab=4.2.*
+  - ipykernel=6.29.*
+
+  # Optional: install light extras via pip
   - pip:
-      - torchinfo
-      - wandb
-      - python-Levenshtein
-      - open-clip-torch
-      - bert-score
-      - sentence-transformers
-      - evaluate
-      - pyEDFlib
-      - accelerate
-      - transformers
-      - pandas
+      - notebook
