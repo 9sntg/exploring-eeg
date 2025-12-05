@@ -1,0 +1,30 @@
+# Core dependencies
+# Note: PyTorch with CUDA 12.1 should be installed separately from https://pytorch.org/
+# For CUDA 12.1: pip install torch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1 --index-url https://download.pytorch.org/whl/cu121
+
+# GPU-enabled PyTorch stack (install from PyTorch index for CUDA support)
+# torch==2.5.1+cu121
+# torchvision==0.20.1+cu121
+# torchaudio==2.5.1+cu121
+# Or use standard installation (will use available CUDA):
+torch==2.5.1
+torchvision==0.20.1
+torchaudio==2.5.1
+
+# Data science / ML ecosystem
+numpy>=1.26.0,<1.27.0
+pandas>=2.2.0,<2.3.0
+scikit-learn>=1.5.0,<1.6.0
+matplotlib>=3.9.0,<3.10.0
+tqdm>=4.66.0,<4.67.0
+wandb>=0.18.0,<0.19.0
+python-Levenshtein>=0.25.0,<0.26.0
+torchinfo>=1.8.0,<1.9.0
+scipy>=1.13.0,<1.14.0
+mne>=1.7.0,<1.8.0
+
+# Jupyter and kernel integration
+notebook>=7.2.0,<7.3.0
+jupyterlab>=4.2.0,<4.3.0
+ipykernel>=6.29.0,<6.30.0
+
