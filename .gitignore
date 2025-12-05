@@ -59,7 +59,6 @@ ipython_config.py
 *.code-workspace
 
 # Data files (large datasets)
-*.npy
 *.npz
 *.h5
 *.hdf5
@@ -67,17 +66,13 @@ ipython_config.py
 *.pickle
 data/
 datasets/
-*.csv
 *.tsv
 # Keep captions.txt if it's small, but ignore large data files
 # Uncomment if captions.txt is large:
 # captions.txt
 
 # Model files and cache
-models/
-checkpoints/
 *.pt
-*.pth
 *.ckpt
 *.safetensors
 .cache/
@@ -88,8 +83,6 @@ transformers_cache/
 # Logs and outputs
 logs/
 *.log
-outputs/
-results/
 runs/
 tensorboard/
 wandb/
@@ -120,7 +113,6 @@ Thumbs.db
 # Ignore local copies of large files
 5-caption-retrieval/captions.txt
 # Ignore any local data copies
-*.npy
 *.npz
 
 # Keep structure but ignore content

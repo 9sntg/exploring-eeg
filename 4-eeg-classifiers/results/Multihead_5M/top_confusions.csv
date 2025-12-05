@@ -1,0 +1,11 @@
+True Label,Predicted Label,Count
+sheep,sofa,45
+bicycle,sofa,44
+bus,sofa,43
+boat,sofa,41
+dog,sofa,41
+person,sofa,40
+bird,sofa,39
+flower,sofa,38
+bottle,sofa,37
+chair,sofa,37

@@ -1,0 +1,11 @@
+True Label,Predicted Label,Count
+motorbike,bicycle,31
+tvmonitor,diningtable,30
+bus,sofa,26
+car,bicycle,26
+sheep,bicycle,26
+diningtable,sofa,24
+flower,bicycle,24
+horse,aeroplane,24
+cat,sofa,23
+horse,bicycle,23

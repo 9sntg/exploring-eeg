@@ -1,0 +1,21 @@
+Category,Accuracy (%)
+tvmonitor,32.31
+cat,12.69
+diningtable,10.38
+horse,10.0
+train,6.92
+boat,6.92
+person,6.15
+chair,5.77
+bottle,4.23
+motorbike,3.08
+car,2.69
+bus,1.15
+cow,1.15
+sofa,0.77
+aeroplane,0.38
+bird,0.38
+dog,0.38
+bicycle,0.0
+flower,0.0
+sheep,0.0
