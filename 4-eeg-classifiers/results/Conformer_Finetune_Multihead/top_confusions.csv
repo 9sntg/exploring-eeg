@@ -1,0 +1,11 @@
+True Label,Predicted Label,Count
+horse,cat,57
+cow,cat,52
+dog,cat,50
+person,cat,47
+car,cat,42
+sheep,cat,41
+diningtable,cat,39
+aeroplane,cat,37
+bird,cat,35
+tvmonitor,cat,34

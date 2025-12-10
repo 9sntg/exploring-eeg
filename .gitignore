@@ -61,6 +61,7 @@ ipython_config.py
 # Data files (large datasets)
 *.npz
 *.h5
+*.pth
 *.hdf5
 *.pkl
 *.pickle
