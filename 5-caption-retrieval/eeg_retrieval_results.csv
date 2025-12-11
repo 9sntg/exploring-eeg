@@ -1,0 +1,11 @@
+Metric,Value,Description
+Recall@1,0.0000,Exact caption match (instance-level)
+Recall@3,0.0002,Exact caption match (instance-level)
+Recall@5,0.0006,Exact caption match (instance-level)
+Class-aware Recall@1,0.0667,Same semantic class match
+Class-aware Recall@3,0.0838,Same semantic class match
+Class-aware Recall@5,0.0952,Same semantic class match
+CLIPScore (Matched) Mean,0.7204,Cosine similarity for correct pairs
+CLIPScore (Mismatched) Mean,0.7134,Cosine similarity for random pairs
+MAP (Overall),0.0013,Caption-level: exact caption relevant
+MAP (Class-Aware),0.1034,Class-level: any class caption relevant

@@ -5,6 +5,7 @@ from __future__ import annotations
 import copy
 from pathlib import Path
 from typing import Dict, Any, Optional
+import torch.nn.functional as F
 
 import torch
 from torch import nn
@@ -163,6 +164,9 @@ def train_model(
 
     return history
 
+
+
+
 def train_multihead_model(
     model: nn.Module,
     loaders: dict,
@@ -176,16 +180,18 @@ def train_multihead_model(
     subj2idx: dict | None = None,
 ):
     """
-    Training loop for multi-head EEG model:
-      model(x, subj_idx) -> logits
+    Training loop for multi-head EEG model with center loss:
+      - model.forward_features(x) -> embeddings [B, D]
+      - subject_heads applied on embeddings to get logits [B, num_classes]
+      - criterion(logits, labels, embeddings_norm) (CombinedLoss)
 
     Args:
-        model:        MultiHeadEEGClassifier (or compatible)
+        model:        MultiHeadEEGClassifier / ConformerMultiScaleEEG (or compatible)
         loaders:      dict with "train" and "val" DataLoaders
         device:       torch.device
         epochs:       number of epochs
         optimizer:    optimizer
-        criterion:    loss function (e.g., CrossEntropyLoss)
+        criterion:    loss function taking (logits, labels, features)
         scheduler:    optional LR scheduler
         checkpoint_dir: directory to save best checkpoint
         max_grad_norm: gradient clipping value (None to disable)
@@ -224,6 +230,7 @@ def train_multihead_model(
         seen = 0
 
         for xb, meta in tqdm(loaders["train"], desc=f"[Train] Epoch {epoch}/{epochs}"):
+            torch.cuda.empty_cache()
             x = xb.to(device, non_blocking=True)
             y = meta["class_id"].to(device, non_blocking=True)
 
@@ -235,8 +242,23 @@ def train_multihead_model(
             )
 
             optimizer.zero_grad(set_to_none=True)
-            logits = model(x, subj_idx)          # <-- multi-head forward
-            loss = criterion(logits, y)
+
+            # ---- single encoder pass ----
+            feats = model.forward_features(x)           # [B, D]
+            feats_norm = F.normalize(feats, dim=-1)     # [B, D]
+
+            # build logits using subject-specific heads (same logic as model.forward)
+            B = feats.size(0)
+            logits = feats.new_zeros((B, model.num_classes), device=device)
+
+            for s in subj_idx.unique():
+                mask = (subj_idx == s)
+                if mask.any():
+                    head = model.subject_heads[int(s)]
+                    logits[mask] = head(feats[mask])
+
+            # Combined loss: CE + CenterLoss
+            loss = criterion(logits, y, feats_norm)
             loss.backward()
 
             if max_grad_norm is not None:
@@ -249,8 +271,8 @@ def train_multihead_model(
             train_acc += compute_accuracy(logits, y) * bs
             seen += bs
 
-        train_loss /= seen
-        train_acc /= seen
+        train_loss /= max(seen, 1)
+        train_acc /= max(seen, 1)
 
         # ----------- VALIDATION -----------
         model.eval()
@@ -268,16 +290,27 @@ def train_multihead_model(
                     device=device,
                 )
 
-                logits = model(x, subj_idx)
-                loss = criterion(logits, y)
+                # same as train, but no grad
+                feats = model.forward_features(x)       # [B, D]
+                feats_norm = F.normalize(feats, dim=-1)
+                B = feats.size(0)
+                logits = feats.new_zeros((B, model.num_classes), device=device)
+
+                for s in subj_idx.unique():
+                    mask = (subj_idx == s)
+                    if mask.any():
+                        head = model.subject_heads[int(s)]
+                        logits[mask] = head(feats[mask])
+
+                loss = criterion(logits, y, feats_norm)
 
                 bs = x.size(0)
                 val_loss += loss.item() * bs
                 val_acc += compute_accuracy(logits, y) * bs
                 val_seen += bs
 
-        val_loss /= val_seen
-        val_acc /= val_seen
+        val_loss /= max(val_seen, 1)
+        val_acc /= max(val_seen, 1)
 
         # step scheduler
         if scheduler is not None:

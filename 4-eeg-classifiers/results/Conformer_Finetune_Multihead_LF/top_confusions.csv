@@ -1,0 +1,11 @@
+True Label,Predicted Label,Count
+dog,cat,40
+sheep,cat,40
+cow,cat,37
+horse,cat,37
+person,sheep,34
+cow,sheep,33
+bus,sheep,32
+bird,cat,31
+chair,cat,30
+dog,sheep,30
